@@ -22,8 +22,7 @@ namespace CarRental.Presentation
                   "\n[3] To ride a car" +
                   "\n[4] To see available cars" +
                   "\n[5] To return the car " +
-                  "\n[6] To see hello menu " +
-                  "\n[7] To quit");
+                  "\n[6] To quit");
 
                 var usersCommand = Console.ReadLine();
 
@@ -56,14 +55,8 @@ namespace CarRental.Presentation
                     Console.Clear();
                     var view = new ReturnCarViewService();
                     view.WriteWantedCarToReturn();
-                }
+                }               
                 else if (usersCommand == "6")
-                {
-                    Console.Clear();
-                    var view = new HelloViewService();
-                    view.Render();
-                }
-                else if (usersCommand == "7")
                 {
                     break;
                 }
