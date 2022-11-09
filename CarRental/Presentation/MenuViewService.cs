@@ -24,7 +24,7 @@ namespace CarRental.Presentation
                   "\n[5] To return the car " +
                   "\n[6] To see hello menu " +
                   "\n[7] To quit" +
-                  "\n[8] To see bye");
+                  "\n[8] To see feature2");
 
                 var usersCommand = Console.ReadLine();
 
@@ -70,7 +70,7 @@ namespace CarRental.Presentation
                 }
                 else if (usersCommand == "8")
                 {
-                    Console.WriteLine("Bye"); 
+                    Console.WriteLine("Feature2"); 
                 }
                 else
                 {
