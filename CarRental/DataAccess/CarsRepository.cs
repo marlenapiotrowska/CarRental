@@ -18,6 +18,7 @@ namespace CarRental.DataAccess
             foreach (var file in files)
             {
                 var text = File.ReadLines(file);
+                var carId = Guid.Parse(text.Take(1).First());
                 var carBrand = text.Skip(1).Take(1).First().ToString();
                 var carColor = text.Skip(2).Take(1).First().ToString();
                 var carProductionYear = int.Parse(text.Skip(3).Take(1).First());
@@ -26,7 +27,8 @@ namespace CarRental.DataAccess
                 var statusOfRide = text.Skip(6).Take(1).First();
                 var car = new Car(carBrand, carColor, carProductionYear, carEnginePower);
                 listOfAllCars.Add(car);
-                
+
+                car.Id = carId;
                 if(statusOfRide == "Start")
                     car.StatusOfRide = StatusOfRide.Start;
                 else 
@@ -71,11 +73,22 @@ namespace CarRental.DataAccess
             File.WriteAllLines($@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{car.Id}.txt", carProperties);
         }
 
+        public void ChangeStatusInFile(string status, string filePath, int lineToEdit)
+        {
+            string[] arrLine = File.ReadAllLines(filePath);
+            arrLine[lineToEdit - 1] = status;
+            File.WriteAllLines(filePath, arrLine);
+        }
+
         public Car UpdateStatus(Guid id, Status status)
         {
             var getCars = GetAllCars();
             var carToChangeStatus = getCars.Find(c => c.Id == id);
             carToChangeStatus.Status = status;
+
+            ChangeStatusInFile(status.ToString(), 
+                $@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{carToChangeStatus.Id}.txt", 
+                6);            
 
             return carToChangeStatus;
         }
@@ -85,6 +98,10 @@ namespace CarRental.DataAccess
             var getCars = GetAllCars();
             var carToChangeStatus = getCars.Find(c => c.Id == id);
             carToChangeStatus.StatusOfRide = status;
+
+            ChangeStatusInFile(status.ToString(),
+                $@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{carToChangeStatus.Id}.txt",
+                7);
 
             return carToChangeStatus;
         }
