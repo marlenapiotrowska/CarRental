@@ -5,17 +5,17 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace CarRental
 {
-    public class CarRentalConfiguration : EntityTypeConfiguration<CarRental>
-    {
-        public CarRentalConfiguration()
-        {
-            Property(r => r.Name)
-                .IsRequired();
+    //public class CarRentalConfiguration : EntityTypeConfiguration<CarRental>
+    //{
+    //    public CarRentalConfiguration()
+    //    {
+    //        Property(r => r.Name)
+    //            .IsRequired();
 
-            HasMany(r => r.Cars)
-                .WithRequired(c => c.CarRental);               
+    //        HasMany(r => r.Cars)
+    //            .WithRequired(c => c.CarRental);               
 
-        }
+    //    }
         
-    }
+    //}
 }
