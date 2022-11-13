@@ -22,8 +22,7 @@ namespace CarRental.Presentation
                   "\n[3] To ride a car" +
                   "\n[4] To see available cars" +
                   "\n[5] To return the car " +                  
-                  "\n[6] To quit" +
-                  "\n Test");
+                  "\n[6] To quit");
 
                 var usersCommand = Console.ReadLine();
 
