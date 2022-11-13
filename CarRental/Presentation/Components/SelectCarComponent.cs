@@ -7,26 +7,39 @@ namespace CarRental.Presentation.Components
     {
         public Car GetCarWithTemporaryId(List<Car> cars, string carActivity)
         {
+            Console.WriteLine($"Cars you can {carActivity}: ");
             foreach (var car in cars)
             {
-                Console.WriteLine($"Cars you can {carActivity}: " +
+                Console.Write(
                     $"\n{cars.IndexOf(car) + 1}: " +
                     $"Id of a car: {car.Id} " +
                     $"\nBrand: {car.Brand}, " +
                     $"\nProduction Year: {car.ProductionYear}, " +
                     $"\nColor: {car.Color}, " +
                     $"\nEngine Power: {car.EnginePower}" +
-                    $"\n----------------");
+                    $"\n----------------\n");
             }
 
-            Console.WriteLine($"Enter an index of a car you want to {carActivity}");
+            while(true)
+            {
+                Console.WriteLine($"Enter an index of a car you want to {carActivity}");
 
-            if (!int.TryParse(Console.ReadLine(), out int carTemporaryId))
-                Console.WriteLine("You entered an invalid value.");
+                if (!int.TryParse(Console.ReadLine(), out int carTemporaryId))
+                {
+                    Console.WriteLine("You entered an invalid value.");
+                    continue;
+                }
 
-            var neededCar = cars.Find(c => cars.IndexOf(c) == carTemporaryId - 1);
+                var neededCar = cars.Find(c => cars.IndexOf(c) == carTemporaryId - 1);
 
-            return neededCar;
+                if (neededCar == null)
+                {
+                    Console.WriteLine("You entered an invalid value.");
+                    continue;
+                }                  
+
+                return neededCar;
+            }            
         }
     }
 }

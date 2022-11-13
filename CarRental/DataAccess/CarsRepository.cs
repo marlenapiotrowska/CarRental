@@ -7,12 +7,15 @@ using System.Text;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
 using System.ComponentModel;
+using VisioForge.Libs.MediaFoundation.OPM;
 
 namespace CarRental.DataAccess
 {
     public class CarsRepository
     {
-        public string ReadLinesInText(string filePath, int lineToSkip, int lineToTake)
+        private const string _path = @"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles";
+
+        private string ReadLinesInText(string filePath, int lineToSkip, int lineToTake)
         {
             var text = File.ReadLines(filePath).Skip(lineToSkip).Take(lineToTake).First();
 
@@ -29,7 +32,7 @@ namespace CarRental.DataAccess
         public List<Car> GetAllCars()
         {
             var listOfAllCars = new List<Car>();
-            var files = Directory.GetFiles(@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles");
+            var files = Directory.GetFiles(_path);
 
             foreach (var file in files)
             {
@@ -83,7 +86,7 @@ namespace CarRental.DataAccess
                 car.Status.ToString(),
                 car.StatusOfRide.ToString()};
 
-            File.WriteAllLines($@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{car.Id}.txt", carProperties);
+            File.WriteAllLines($@"{_path}\{car.Id}.txt", carProperties);
         }
 
         public void ChangeStatusInFile(string status, string filePath, int lineToEdit)
@@ -100,7 +103,7 @@ namespace CarRental.DataAccess
             carToChangeStatus.Status = status;
 
             ChangeStatusInFile(status.ToString(),
-                $@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{carToChangeStatus.Id}.txt",
+                $@"{_path}\{carToChangeStatus.Id}.txt",
                 6);
 
             return carToChangeStatus;
@@ -113,7 +116,7 @@ namespace CarRental.DataAccess
             carToChangeStatus.StatusOfRide = status;
 
             ChangeStatusInFile(status.ToString(),
-                $@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{carToChangeStatus.Id}.txt",
+                $@"{_path}\{carToChangeStatus.Id}.txt",
                 7);
 
             return carToChangeStatus;
