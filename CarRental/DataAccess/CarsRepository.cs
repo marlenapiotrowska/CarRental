@@ -43,7 +43,7 @@ namespace CarRental.DataAccess
 
                 var car = new Car(carBrand, carColor, carProductionYear, carEnginePower);
                 listOfAllCars.Add(car);
-
+                
                 car.Id = carId;
                 car.Status = status;
                 car.StatusOfRide = statusOfRide;
