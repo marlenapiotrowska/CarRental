@@ -5,40 +5,49 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.IO;
+using static System.Net.Mime.MediaTypeNames;
+using System.ComponentModel;
 
 namespace CarRental.DataAccess
 {
     public class CarsRepository
     {
+        public string ReadLinesInText(string filePath, int lineToSkip, int lineToTake)
+        {
+            var text = File.ReadLines(filePath).Skip(lineToSkip).Take(lineToTake).First();
+
+            return text;
+        }
+
+        private T GetValue<T>(string filePath, int lineToSkip, int lineToTake)
+        {
+            var value = ReadLinesInText(filePath, lineToSkip, lineToTake);
+
+            return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(value);
+        }
+
         public List<Car> GetAllCars()
         {
             var listOfAllCars = new List<Car>();
             var files = Directory.GetFiles(@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles");
-           
+
             foreach (var file in files)
             {
-                var text = File.ReadLines(file);
-                var carId = Guid.Parse(text.Take(1).First());
-                var carBrand = text.Skip(1).Take(1).First().ToString();
-                var carColor = text.Skip(2).Take(1).First().ToString();
-                var carProductionYear = int.Parse(text.Skip(3).Take(1).First());
-                var carEnginePower = int.Parse(text.Skip(4).Take(1).First());
-                var status = text.Skip(5).Take(1).First().ToString();
-                var statusOfRide = text.Skip(6).Take(1).First();
+                var carId = GetValue<Guid>(file, 0, 1);
+                var carBrand = GetValue<string>(file, 1, 1);
+                var carColor = GetValue<string>(file, 2, 1);
+                var carProductionYear = GetValue<int>(file, 3, 1);
+                var carEnginePower = GetValue<int>(file, 4, 1);
+                var status = GetValue<Status>(file, 5, 1);
+                var statusOfRide = GetValue<StatusOfRide>(file, 6, 1);
+
                 var car = new Car(carBrand, carColor, carProductionYear, carEnginePower);
                 listOfAllCars.Add(car);
 
                 car.Id = carId;
-                if(statusOfRide == "Start")
-                    car.StatusOfRide = StatusOfRide.Start;
-                else 
-                    car.StatusOfRide = StatusOfRide.Stop;
-
-                if (status == "Available")
-                    car.Status = Status.Available;
-                else
-                    car.Status = Status.Unavailable;
-                }
+                car.Status = status;
+                car.StatusOfRide = statusOfRide;
+            }
 
             return listOfAllCars;
         }
@@ -46,7 +55,9 @@ namespace CarRental.DataAccess
         public List<Car> GetAvailable()
         {
             var getCars = GetAllCars();
-            var listOfAvailableCars = getCars.Where(c => c.Status == Status.Available).ToList();
+            var listOfAvailableCars = getCars
+                .Where(c => c.Status == Status.Available)
+                .ToList();
 
             return listOfAvailableCars;
         }
@@ -54,7 +65,9 @@ namespace CarRental.DataAccess
         public List<Car> GetUnavailable()
         {
             var getCars = GetAllCars();
-            var listOfUnavailableCars = getCars.Where(c => c.Status == Status.Unavailable).ToList();
+            var listOfUnavailableCars = getCars
+                .Where(c => c.Status == Status.Unavailable)
+                .ToList();
 
             return listOfUnavailableCars;
         }
@@ -86,9 +99,9 @@ namespace CarRental.DataAccess
             var carToChangeStatus = getCars.Find(c => c.Id == id);
             carToChangeStatus.Status = status;
 
-            ChangeStatusInFile(status.ToString(), 
-                $@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{carToChangeStatus.Id}.txt", 
-                6);            
+            ChangeStatusInFile(status.ToString(),
+                $@"D:\4 - Maja sie uczy\4 - My apps\CarRentalFiles\{carToChangeStatus.Id}.txt",
+                6);
 
             return carToChangeStatus;
         }

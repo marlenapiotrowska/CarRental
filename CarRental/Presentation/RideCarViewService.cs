@@ -1,6 +1,7 @@
 ﻿using CarRental.DataAccess;
 using CarRental.Domain;
 using CarRental.Domain.Models;
+using CarRental.Presentation.Components;
 using CarRental.Presentation.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -95,39 +96,19 @@ namespace CarRental.Presentation
         public void WriteWantedCarToRide()
         {
             var repository = new CarsRepository();
-            var cars = repository.GetUnavailable();
-
-            foreach (var car in cars)
-            {
-                Console.WriteLine($"Rented cars:" +
-                $"[{car.Id}]{car.Brand}, {car.ProductionYear}, {car.Color}, {car.EnginePower}.");
-            }
+            var cars = repository.GetUnavailable();                       
 
             if (cars.Count == 0)
                 Console.WriteLine("You did not rent a car");
 
             else
             {
-                int productionYear = GetProductionYear();                
-
-                var carWantedToBeRent = cars
-                    .Where(c => c.ProductionYear == productionYear).First();
-
-                Render(carWantedToBeRent);                
+                var component = new SelectCarComponent();
+                var carWantedToBeRide = component.GetCarWithTemporaryId(cars, "ride");
+                Render(carWantedToBeRide);                
             }
 
             Console.ReadKey();
         }
-
-        public int GetProductionYear()
-        {
-            Console.WriteLine("Enter production year of a car you want to rent.");
-
-            if (!int.TryParse(Console.ReadLine(), out int carProductionYear))
-                throw new Exception("You entered an invalid value.");
-
-            return carProductionYear;
-        }
-
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CarRental.Presentation.Components;
 
 namespace CarRental.Presentation
 {
@@ -28,38 +29,20 @@ namespace CarRental.Presentation
             var repository = new CarsRepository();
             var cars = repository.GetUnavailable();
             var carWithWantedBrand = cars
-                .Where(c => c.Brand == wantedCarBrand);
+                .Where(c => c.Brand == wantedCarBrand)
+                .ToList();
 
             if (carWithWantedBrand == null)
                 Console.WriteLine("There is no car meets your expectations.");
 
             else
             {
-                foreach (var car in carWithWantedBrand)
-                {
-                    Console.WriteLine($"Rented car: " +
-                        $"{car.Id} {car.Brand}, {car.ProductionYear}, {car.Color}, {car.EnginePower}.");
-                }
-
-                int productionYear = GetProductionYear();               
-
-                var carWantedToBeReturn = cars
-                    .Where(c => c.ProductionYear == productionYear).First();
-
+                var component = new SelectCarComponent();
+                var carWantedToBeReturn = component.GetCarWithTemporaryId(carWithWantedBrand, "return");
                 Render(carWantedToBeReturn);
             }
 
             Console.ReadKey();
         }
-
-        public int GetProductionYear()
-        {
-            Console.WriteLine("Enter production year of a car you want to return.");
-
-            if (!int.TryParse(Console.ReadLine(), out int carProductionYear))
-                throw new Exception("You entered an invalid value.");
-
-            return carProductionYear;
-        }       
-    }
+    }  
 }
