@@ -16,7 +16,7 @@ namespace CarRental.Presentation
 
             foreach(var car in cars)
             {
-                Console.WriteLine(
+                Console.Write(
                     $"\nIndex of a car: Car{cars.IndexOf(car) + 1}" +
                     $"\nBrand:{car.Brand}," +
                     $"\nProduction year: {car.ProductionYear}, " +

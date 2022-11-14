@@ -7,11 +7,11 @@ namespace CarRental
 {
     public class Car
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
         public string Brand { get; set; }
         public string Color { get; set; }
         public int ProductionYear { get; set; }
-        public int EnginePower { get; set; }
+        public int EnginePower { get; set; }        
         public virtual CarRental CarRental { get; set; }
         public int CarRentalId { get; set; }
         public Status Status { get; set; }

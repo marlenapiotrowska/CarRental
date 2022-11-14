@@ -13,9 +13,9 @@ namespace CarRental
                 .IsRequired();
 
             HasMany(r => r.Cars)
-                .WithRequired(c => c.CarRental);               
+                .WithRequired(c => c.CarRental);
 
         }
-        
+
     }
 }
