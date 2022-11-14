@@ -5,9 +5,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 using System.ComponentModel;
-using VisioForge.Libs.MediaFoundation.OPM;
 
 namespace CarRental.DataAccess
 {
