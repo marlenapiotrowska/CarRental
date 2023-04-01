@@ -5,7 +5,6 @@ using CarRental.Presentation.Interfaces;
 using System;
 using System.Linq;
 
-
 namespace CarRental.Presentation
 {
     public class RentCarViewService : IViewServiceWithParameter
@@ -42,7 +41,6 @@ namespace CarRental.Presentation
                 Render(carWantedToBeRent);
             }
             Console.ReadKey();
-        }
-              
+        }              
     }
 }

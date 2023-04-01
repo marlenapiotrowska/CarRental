@@ -1,7 +1,5 @@
-﻿
-using CarRental.Domain.Models;
+﻿using CarRental.Domain.Models;
 using System;
-using System.Collections.Generic;
 
 namespace CarRental
 {

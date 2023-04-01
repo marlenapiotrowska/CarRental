@@ -1,8 +1,5 @@
 ﻿using CarRental.Presentation.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
 
 namespace CarRental.Presentation
 {
@@ -65,7 +62,6 @@ namespace CarRental.Presentation
                     throw new InvalidOperationException("You pressed an invalid number");
                 }
             }
-        }
-    
+        }    
     }
 }

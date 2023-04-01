@@ -1,6 +1,4 @@
 ﻿using CarRental.Presentation;
-using System;
-using System.Collections.Generic;
 
 namespace CarRental
 {

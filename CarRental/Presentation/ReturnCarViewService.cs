@@ -1,11 +1,9 @@
 ﻿using CarRental.DataAccess;
 using CarRental.Domain;
+using CarRental.Presentation.Components;
 using CarRental.Presentation.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using CarRental.Presentation.Components;
 
 namespace CarRental.Presentation
 {

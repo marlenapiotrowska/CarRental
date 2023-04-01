@@ -1,9 +1,6 @@
 ﻿using CarRental.DataAccess;
 using CarRental.Presentation.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
 
 namespace CarRental.Presentation
 {
