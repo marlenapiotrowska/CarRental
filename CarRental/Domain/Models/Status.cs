@@ -1,5 +1,4 @@
-﻿
-namespace CarRental.Domain.Models
+﻿namespace CarRental.Domain.Models
 {
     public enum Status
     {

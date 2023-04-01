@@ -1,9 +1,6 @@
-﻿using System;
+﻿using CarRental.DataAccess;
 using CarRental.Domain.Models;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using CarRental.DataAccess;
+using System;
 
 namespace CarRental.Domain
 {
